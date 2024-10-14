@@ -17,9 +17,6 @@ public class LoginTests extends BaseTest {
     final RegisterPage registerPage = new RegisterPage(driver);
     final ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
     final UserMethods methods = new UserMethods();
-    final String email = "paa@login.ru";
-    final String password = "123456";
-    final String name = "Polina";
     final UserRequestBody user = new UserRequestBody(email, password, name);
 
     String accessToken;

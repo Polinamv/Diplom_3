@@ -12,9 +12,6 @@ import pages.RegisterPage;
 public class RegistrationTests extends BaseTest {
     final RegisterPage registerPage = new RegisterPage(driver);
     final LoginPage loginPage = new LoginPage(driver);
-    final String email = "paa@login.ru";
-    final String password = "123456";
-    final String name = "Polina";
 
     @Before
     public void setup() {

@@ -13,9 +13,6 @@ public class RoutingSectionsTests extends BaseTest {
     final MainPage mainPage = new MainPage(driver);
     final LoginPage loginPage = new LoginPage(driver);
     final UserMethods methods = new UserMethods();
-    final String email = "paa@login.ru";
-    final String password = "123456";
-    final String name = "Polina";
     final UserRequestBody user = new UserRequestBody(email, password, name);
 
     String accessToken;
@@ -34,19 +31,36 @@ public class RoutingSectionsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Навигация по вкладкам Конструктора - булки, соусы, начинки")
-    public void routingToBurgersSections() {
+    @DisplayName("Навигация по вкладкам Конструктора - \"Булки\"")
+    public void routingToBunSection() {
         loginPage.loginToAccount(email, password);
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickSauceButton();
-        boolean isSauceInViewport = mainPage.isSauceInViewport();
-        Assert.assertTrue(isSauceInViewport);
-        mainPage.clickFillingButton();
-        boolean isFillingInViewport = mainPage.isFillingInViewport();
-        Assert.assertTrue(isFillingInViewport);
         mainPage.clickBunsButton();
-        boolean isBunInViewport = mainPage.isBunInViewport();
-        Assert.assertTrue(isBunInViewport);
+        boolean isBunAtTheBottomOfTab = mainPage.isBunAtTheBottomOfTab();
+        Assert.assertTrue(isBunAtTheBottomOfTab);
+    }
+
+    @Test
+    @DisplayName("Навигация по вкладкам Конструктора - \"Соусы\"")
+    public void routingToSauceSection() {
+        loginPage.loginToAccount(email, password);
+        mainPage.waitMakeTheBurgerTitleToLoad();
+        mainPage.waitLoadingToEnd();
+        mainPage.clickSauceButton();
+        boolean isSauceAtTheBottomOfTab = mainPage.isSauceAtTheBottomOfTab();
+        Assert.assertTrue(isSauceAtTheBottomOfTab);
+    }
+
+    @Test
+    @DisplayName("Навигация по вкладкам Конструктора - \"Начинки\"")
+    public void routingToFillingSection() {
+        loginPage.loginToAccount(email, password);
+        mainPage.waitMakeTheBurgerTitleToLoad();
+        mainPage.waitLoadingToEnd();
+        mainPage.clickFillingButton();
+        boolean isFillingAtTheBottomOfTab = mainPage.isFillingAtTheBottomOfTab();
+        Assert.assertTrue(isFillingAtTheBottomOfTab);
     }
 }

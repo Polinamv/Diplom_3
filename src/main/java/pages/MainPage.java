@@ -19,9 +19,9 @@ public class MainPage extends BasePage {
     private static final String SECTION_BUNS_XPATH = ".//span[text()='Булки']";
     private static final String SECTION_SAUCE_XPATH = ".//span[text()='Соусы']";
     private static final String SECTION_FILLING_XPATH = ".//span[text()='Начинки']";
-    private static final String ELEMENT_BUN_XPATH = ".//img[@alt='Флюоресцентная булка R2-D3']";
-    private static final String ELEMENT_SAUCE_X_XPATH = ".//img[@alt='Соус Spicy-X']";
-    private static final String ELEMENT_FILLING_XPATH = ".//img[@alt='Мясо бессмертных моллюсков Protostomia']";
+    private static final String TITLE_BUNS_XPATH = ".//h2[text()='Булки']";
+    private static final String TITLE_SAUCE_XPATH = ".//h2[text()='Соусы']";
+    private static final String TITLE_FILLING_XPATH = ".//h2[text()='Начинки']";
 
     @Step("Клик по кнопке \"Личный Кабинет\"")
     public void clickPersonalAccountButton() {
@@ -64,30 +64,52 @@ public class MainPage extends BasePage {
     }
 
     @Step("Проверка булки в зоне видимости")
-    public boolean isBunInViewport() {
-        return isElementInViewport(driver.findElement(By.xpath(ELEMENT_BUN_XPATH)));
+    public boolean isBunAtTheBottomOfTab() {
+        try {
+            Thread.sleep(500);
+            return isSectionAtTheBottomOfTab(
+                    driver.findElement(By.xpath(SECTION_BUNS_XPATH)),
+                    driver.findElement(By.xpath(TITLE_BUNS_XPATH))
+            );
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Step("Проверка соуса в зоне видимости")
-    public boolean isSauceInViewport() {
-        return isElementInViewport(driver.findElement(By.xpath(ELEMENT_SAUCE_X_XPATH)));
+    public boolean isSauceAtTheBottomOfTab() {
+        try {
+            Thread.sleep(500);
+            return isSectionAtTheBottomOfTab(
+                    driver.findElement(By.xpath(SECTION_SAUCE_XPATH)),
+                    driver.findElement(By.xpath(TITLE_SAUCE_XPATH))
+            );
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Step("Проверка начинки в зоне видимости")
-    public boolean isFillingInViewport() {
-        return isElementInViewport(driver.findElement(By.xpath(ELEMENT_FILLING_XPATH)));
+    public boolean isFillingAtTheBottomOfTab() {
+        try {
+            Thread.sleep(500);
+            return isSectionAtTheBottomOfTab(
+                    driver.findElement(By.xpath(SECTION_FILLING_XPATH)),
+                    driver.findElement(By.xpath(TITLE_FILLING_XPATH))
+            );
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private boolean isElementInViewport(WebElement element) {
+    private boolean isSectionAtTheBottomOfTab(WebElement tabs, WebElement element) {
         return new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_DURATION))
                 .until(
                         driver -> {
-                            Rectangle rect = element.getRect();
-                            Dimension windowSize = driver.manage().window().getSize();
-                            return rect.getX() >= 0
-                                    && rect.getY() >= 0
-                                    && rect.getX() + rect.getWidth() <= windowSize.getWidth()
-                                    && rect.getY() + rect.getHeight() <= windowSize.getHeight();
+                            Rectangle rectTabs = tabs.getRect();
+                            Rectangle rectElement = element.getRect();
+                            int elementsDiff = rectElement.getY() - rectTabs.getY() - rectTabs.getHeight();
+                            return elementsDiff < 100 && elementsDiff > 0;
                         }
                 );
     }

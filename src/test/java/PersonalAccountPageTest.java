@@ -15,9 +15,6 @@ public class PersonalAccountPageTest extends BaseTest {
     final LoginPage loginPage = new LoginPage(driver);
     final PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
     final UserMethods methods = new UserMethods();
-    final String email = "paa@login.ru";
-    final String password = "123456";
-    final String name = "Polina";
     final UserRequestBody user = new UserRequestBody(email, password, name);
 
     String accessToken;
