@@ -8,7 +8,7 @@ public class BaseTest {
     // WebDriver driver = browserDrivers.firefoxDriver();
     WebDriver driver = browserDrivers.chromeDriver();
 
-    final String email = "polya1@login.ru";
+    final String email = "polya@login.ru";
     final String password = "123456";
     final String name = "Polina";
 

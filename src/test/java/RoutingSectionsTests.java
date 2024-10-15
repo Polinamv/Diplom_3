@@ -38,8 +38,8 @@ public class RoutingSectionsTests extends BaseTest {
         mainPage.waitLoadingToEnd();
         mainPage.clickSauceButton();
         mainPage.clickBunsButton();
-        boolean isBunAtTheBottomOfTab = mainPage.isBunAtTheBottomOfTab();
-        Assert.assertTrue(isBunAtTheBottomOfTab);
+        boolean isBunsSelected = mainPage.isBunsSelected();
+        Assert.assertTrue(isBunsSelected);
     }
 
     @Test
@@ -49,8 +49,8 @@ public class RoutingSectionsTests extends BaseTest {
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickSauceButton();
-        boolean isSauceAtTheBottomOfTab = mainPage.isSauceAtTheBottomOfTab();
-        Assert.assertTrue(isSauceAtTheBottomOfTab);
+        boolean isSaucesSelected = mainPage.isSaucesSelected();
+        Assert.assertTrue(isSaucesSelected);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class RoutingSectionsTests extends BaseTest {
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickFillingButton();
-        boolean isFillingAtTheBottomOfTab = mainPage.isFillingAtTheBottomOfTab();
-        Assert.assertTrue(isFillingAtTheBottomOfTab);
+        boolean isFillingsSelected = mainPage.isFillingsSelected();
+        Assert.assertTrue(isFillingsSelected);
     }
 }
