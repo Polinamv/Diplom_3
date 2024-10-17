@@ -15,7 +15,7 @@ public class RoutingToMainPageTests extends BaseTest {
     final LoginPage loginPage = new LoginPage(driver);
     final PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
     final UserMethods methods = new UserMethods();
-    final UserRequestBody user = new UserRequestBody(email, password, name);
+    final UserRequestBody user = getRandomUser();
 
     String accessToken;
 
@@ -35,7 +35,7 @@ public class RoutingToMainPageTests extends BaseTest {
     @Test
     @DisplayName("Переход на главную страницу через кнопку \"Конструктор\"")
     public void routingToMainPageByConstructorButton() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickPersonalAccountButton();
@@ -50,7 +50,7 @@ public class RoutingToMainPageTests extends BaseTest {
     @Test
     @DisplayName("Переход на главную страницу через логотип")
     public void routingToMainPageByLogoButton() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickPersonalAccountButton();

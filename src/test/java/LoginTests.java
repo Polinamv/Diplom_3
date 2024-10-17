@@ -17,7 +17,7 @@ public class LoginTests extends BaseTest {
     final RegisterPage registerPage = new RegisterPage(driver);
     final ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage(driver);
     final UserMethods methods = new UserMethods();
-    final UserRequestBody user = new UserRequestBody(email, password, name);
+    final UserRequestBody user = getRandomUser();
 
     String accessToken;
 
@@ -39,7 +39,7 @@ public class LoginTests extends BaseTest {
         driver.get("https://stellarburgers.nomoreparties.site");
         mainPage.waitLoadingToEnd();
         mainPage.clickLoginToAccountButton();
-        loginPage.loginToAccount(email, password);
+            loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         String makeTheBurgerTitleText = mainPage.getMakeTheBurgerTitleText();
         Assert.assertEquals("Соберите бургер", makeTheBurgerTitleText);
@@ -51,7 +51,7 @@ public class LoginTests extends BaseTest {
         driver.get("https://stellarburgers.nomoreparties.site");
         mainPage.waitLoadingToEnd();
         mainPage.clickPersonalAccountButton();
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         String makeTheBurgerTitleText = mainPage.getMakeTheBurgerTitleText();
         Assert.assertEquals("Соберите бургер", makeTheBurgerTitleText);
@@ -63,7 +63,7 @@ public class LoginTests extends BaseTest {
         driver.get("https://stellarburgers.nomoreparties.site/register");
         registerPage.waitLoadingToEnd();
         registerPage.clickLoginButton();
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         String makeTheBurgerTitleText = mainPage.getMakeTheBurgerTitleText();
         Assert.assertEquals("Соберите бургер", makeTheBurgerTitleText);
@@ -75,7 +75,7 @@ public class LoginTests extends BaseTest {
         driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
         forgotPasswordPage.waitLoadingToEnd();
         forgotPasswordPage.clickLoginButton();
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         String makeTheBurgerTitleText = mainPage.getMakeTheBurgerTitleText();
         Assert.assertEquals("Соберите бургер", makeTheBurgerTitleText);

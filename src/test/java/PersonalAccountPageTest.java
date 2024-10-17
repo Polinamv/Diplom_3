@@ -15,7 +15,7 @@ public class PersonalAccountPageTest extends BaseTest {
     final LoginPage loginPage = new LoginPage(driver);
     final PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
     final UserMethods methods = new UserMethods();
-    final UserRequestBody user = new UserRequestBody(email, password, name);
+    final UserRequestBody user = getRandomUser();
 
     String accessToken;
     @Before
@@ -34,7 +34,7 @@ public class PersonalAccountPageTest extends BaseTest {
     @Test
     @DisplayName("Открытие Личного Кабинета")
     public void openPersonalAccountPage() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickPersonalAccountButton();

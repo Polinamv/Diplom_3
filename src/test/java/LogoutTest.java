@@ -15,7 +15,7 @@ public class LogoutTest extends BaseTest {
     final LoginPage loginPage = new LoginPage(driver);
     final PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
     final UserMethods methods = new UserMethods();
-    final UserRequestBody user = new UserRequestBody(email, password, name);
+    final UserRequestBody user = getRandomUser();
 
     String accessToken;
 
@@ -35,7 +35,7 @@ public class LogoutTest extends BaseTest {
     @Test
     @DisplayName("Выход из аккаунта")
     public void logoutTest() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickPersonalAccountButton();

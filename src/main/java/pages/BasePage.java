@@ -21,5 +21,14 @@ public abstract class BasePage {
     @Step("Дождаться окончания загрузки")
     public void waitLoadingToEnd() {
         new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_DURATION)).until(ExpectedConditions.invisibilityOfElementLocated((By.xpath(LOADING_IMAGE_XPATH))));
+        sleep();
+    }
+
+    public void sleep() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,5 +1,6 @@
 import apiData.UserCredentials;
 import apiData.UserMethods;
+import apiData.UserRequestBody;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Assert;
@@ -12,6 +13,7 @@ import pages.RegisterPage;
 public class RegistrationTests extends BaseTest {
     final RegisterPage registerPage = new RegisterPage(driver);
     final LoginPage loginPage = new LoginPage(driver);
+    final UserRequestBody user = getRandomUser();
 
     @Before
     public void setup() {
@@ -21,7 +23,7 @@ public class RegistrationTests extends BaseTest {
     @Test
     @DisplayName("Успешная регистрация пользователя")
     public void registerUserSuccess() {
-        registerPage.setUpUserDataAndClickRegister(name, email, password);
+        registerPage.setUpUserDataAndClickRegister(user.getName(), user.getEmail(), user.getPassword());
         loginPage.waitLoginTitleToLoad();
         String titleText = loginPage.getTitleText();
         Assert.assertEquals("Вход", titleText);
@@ -31,14 +33,14 @@ public class RegistrationTests extends BaseTest {
     @Test
     @DisplayName("Регистрация пользователя с некорректным паролем")
     public void registerUserFail() {
-        registerPage.setUpUserDataAndClickRegister(name, email, "54321");
+        registerPage.setUpUserDataAndClickRegister(user.getName(), user.getEmail(), "54321");
         registerPage.waitErrorMessageToLoad();
         String errorMessage = registerPage.getErrorMessageText();
         Assert.assertEquals("Некорректный пароль", errorMessage);
     }
 
     private void deleteUser() {
-        UserCredentials credentials = new UserCredentials(email, password);
+        UserCredentials credentials = new UserCredentials(user.getEmail(), user.getPassword());
         UserMethods methods = new UserMethods();
         ValidatableResponse loginUserResponse = methods.login(credentials);
         String accessToken = loginUserResponse.extract().path("accessToken");

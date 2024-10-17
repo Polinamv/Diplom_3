@@ -1,5 +1,8 @@
+import apiData.UserRequestBody;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Random;
 
 public class BaseTest {
 
@@ -8,12 +11,16 @@ public class BaseTest {
     // WebDriver driver = browserDrivers.firefoxDriver();
     WebDriver driver = browserDrivers.chromeDriver();
 
-    final String email = "polya@login.ru";
-    final String password = "123456";
-    final String name = "Polina";
-
     @After
     public void clearUp() {
         driver.quit();
+    }
+
+    public UserRequestBody getRandomUser() {
+        return new UserRequestBody(
+                "user" + new Random().nextInt(1000000) + "@mail.com",
+                "123456",
+                "Name"
+        );
     }
 }

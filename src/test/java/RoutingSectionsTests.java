@@ -13,7 +13,7 @@ public class RoutingSectionsTests extends BaseTest {
     final MainPage mainPage = new MainPage(driver);
     final LoginPage loginPage = new LoginPage(driver);
     final UserMethods methods = new UserMethods();
-    final UserRequestBody user = new UserRequestBody(email, password, name);
+    final UserRequestBody user = getRandomUser();
 
     String accessToken;
 
@@ -33,10 +33,11 @@ public class RoutingSectionsTests extends BaseTest {
     @Test
     @DisplayName("Навигация по вкладкам Конструктора - \"Булки\"")
     public void routingToBunSection() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickSauceButton();
+        mainPage.sleep();
         mainPage.clickBunsButton();
         boolean isBunsSelected = mainPage.isBunsSelected();
         Assert.assertTrue(isBunsSelected);
@@ -45,7 +46,7 @@ public class RoutingSectionsTests extends BaseTest {
     @Test
     @DisplayName("Навигация по вкладкам Конструктора - \"Соусы\"")
     public void routingToSauceSection() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickSauceButton();
@@ -56,7 +57,7 @@ public class RoutingSectionsTests extends BaseTest {
     @Test
     @DisplayName("Навигация по вкладкам Конструктора - \"Начинки\"")
     public void routingToFillingSection() {
-        loginPage.loginToAccount(email, password);
+        loginPage.loginToAccount(user.getEmail(), user.getPassword());
         mainPage.waitMakeTheBurgerTitleToLoad();
         mainPage.waitLoadingToEnd();
         mainPage.clickFillingButton();
